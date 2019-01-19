@@ -1,7 +1,9 @@
+/* eslint-disable comma-dangle */
 const express = require('express');
 const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
+
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
@@ -15,13 +17,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser());
-app.use(session({secret: 'library'}));
+app.use(session({
+  secret: 'library',
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
+}));
 
-require('./src/config/passport.js')(app);
+require('./src/config/passport')(app);
+
 app.use(express.static(path.join(__dirname, '/public/')));
 
-app.set('views','./src/views');
-app.set('view engine','ejs');
+app.set('views', './src/views');
+app.set('view engine', 'ejs');
 
 const nav = [{
   link: '/books',
@@ -47,8 +55,9 @@ app.get('/', (req, res) => {
     {
       nav,
       title: 'Library'
-    });
+    }
+  );
 });
 app.listen(4000, () => {
-  console.log('listening on port 4000 ');
+  debug('listening on port 4000 ');
 });
