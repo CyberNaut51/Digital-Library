@@ -1,18 +1,23 @@
+/* eslint-disable comma-dangle */
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const adminRouter = express.Router();
 const books = [
   {
-    title: 'Book1',
-    Author: 'Harish',
+    title: 'War And Peace',
+    bookId: 656,
+    read: false
   },
   {
-    title: 'Book2',
-    Author: 'Harish',
+    title: 'Les Miserables',
+    Author: 'Victor Hugo',
+    bookId: 24280,
+    read: false
   },
   {
-    title: 'Book3',
-    Author: 'Harish',
+    title: 'The Time Machine',
+    Author: 'H G Wells',
+    bookId: 24280
   },
 ];
 
